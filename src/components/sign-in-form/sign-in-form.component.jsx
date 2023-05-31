@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { signInWithEmail, signInWithGooglePopup, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
+import { signInAuthUserWithEmailAndPassword, signInWithGooglePopup, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
@@ -28,7 +28,7 @@ const SignInForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { user } = await signInWithEmail( email, password );
+            const { user } = await signInAuthUserWithEmailAndPassword( email, password );
             const userDocRef = createUserDocumentFromAuth(user);
             resetFormFields();
         } catch (error) {
@@ -68,7 +68,7 @@ const SignInForm = () => {
                 />
                 <div className="submit-container">
                     <Button type="submit">Sign In</Button>
-                    <Button type="button" buttonType="google" onClick={logGoogleUser}>Sign In with Google</Button>
+                    <Button type="button" buttonType="google" onClick={logGoogleUser}>Google Sign In</Button>
                 </div>
             </form>
         </div>
